@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>littlemoneyroblox | Official</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: black;
+    color: white;
+    overflow-x: hidden;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background: radial-gradient(circle at center, #111 0%, #000 70%);
+}
+
+h1 {
+    font-size: 60px;
+    background: linear-gradient(90deg, red, purple, cyan);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 20px red; }
+    to { text-shadow: 0 0 40px cyan; }
+}
+
+.subtitle {
+    margin-top: 20px;
+    font-size: 22px;
+    opacity: 0.8;
+}
+
+.buttons {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+button {
+    padding: 12px 30px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    background: linear-gradient(90deg, red, purple);
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px purple;
+}
+
+.section {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.card {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 30px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(255,0,255,0.3);
+}
+
+footer {
+    padding: 30px;
+    text-align: center;
+    background: #111;
+    opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="hero">
+    <h1>littlemoneyroblox</h1>
+    <div class="subtitle">
+        創立 EK & ARC<br>
+        現已合併成 <strong>EK X ARC</strong>
+    </div>
+
+    <div class="buttons">
+        <button onclick="window.open('https://www.youtube.com/@littlemoneyYT')">
+            前往 YouTube
+        </button>
+        <button onclick="window.open('https://discord.gg/4QRqbCcbFF')">
+            加入 Discord
+        </button>
+        <button onclick="window.open('https://www.roblox.com/users/8178874884/profile')">
+            前往 Roblox
+        </button>
+    </div>
+</div>
+
+<div class="section">
+    <h2>關於我</h2>
+    <div class="card">
+        Roblox 創作者<br>
+        戰隊創辦人<br>
+        EK X ARC 領導者
+    </div>
+</div>
+
+<footer>
+© 2026 littlemoneyroblox | EK X ARC
+</footer>
+
+<script>
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+window.addEventListener("mousemove", (e) => {
+    for (let i = 0; i < 5; i++) {
+        particles.push({
+            x: e.clientX,
+            y: e.clientY,
+            size: Math.random() * 5 + 2,
+            speedX: (Math.random() - 0.5) * 2,
+            speedY: (Math.random() - 0.5) * 2,
+            life: 100
+        });
+    }
+});
+
+function animate() {
+    ctx.fillStyle = "rgba(0,0,0,0.2)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,0,255,0.8)";
+        ctx.fill();
+
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.life--;
+
+        if (p.life <= 0) {
+            particles.splice(i, 1);
+            i--;
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
